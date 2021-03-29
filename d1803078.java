@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.lab;
 
 import java.io.File;
 import java.util.Scanner;
@@ -24,10 +24,9 @@ static long count2=0;
         int i = 0, j = 0;
         int k = x;
         while (i < n1 && j < n2) {
-            /*****/
-            count1 += 1;
-            /*****/
+            count1 += 2;
             if (temp1[i] <= temp2[j]) {
+                count1++;
                 a[k] = temp1[i];
                 i++;
             } else {
@@ -36,22 +35,25 @@ static long count2=0;
             }
             k++;
         }
-
+count1++;
         while (i < n1) {
             a[k] = temp1[i];
             i++;
             k++;
+            count1++;
         }
 
         while (j < n2) {
             a[k] = temp2[j];
             j++;
             k++;
+            count1++;
         }
     }
 
    static void Mergesort(int arr[], int l, int r) {
         if (l < r) {
+            count1++;
             int m = (l + r) / 2;
             Mergesort(arr, l, m);
             Mergesort(arr, m + 1, r);
@@ -72,12 +74,10 @@ static long count2=0;
         int i = (low-1);
         for (int j=low; j<high; j++) 
         { 
+            count2++;
             if (arr[j] <= pivot) 
             {
-                /*****/
                 count2 += 1;
-                /*****/
-
                 i++; 
                 int temp = arr[i]; 
                 arr[i] = arr[j]; 
@@ -85,9 +85,9 @@ static long count2=0;
             } 
         } 
   
-      
+       
         count2 += 1;
-        
+       
 
         int temp = arr[i+1]; 
         arr[i+1] = arr[high]; 
@@ -101,6 +101,7 @@ static long count2=0;
     { 
         if (low < high) 
         {   
+            count2++;
             int pi = partition(arr, low, high); 
             quicksort(arr, low, pi-1); 
             quicksort(arr, pi+1, high); 
@@ -110,7 +111,7 @@ static long count2=0;
   
     public static void main(String args[]) {
         Scanner ob = new Scanner(System.in);
-        File f = new File("MaxMin1.txt");
+        File f = new File("tenthousand_value.txt");
         try {
             Scanner sc = new Scanner(f);
             int a[];
@@ -119,19 +120,18 @@ static long count2=0;
                 String s = sc.nextLine();
                 int n = Integer.valueOf(s);
                 a = new int[n];
-               // b = new int[n];
+            
                 for (int i = 0; i < n; i++) {
                     a[i] = Integer.valueOf(sc.next());
-                 //   b[i] = Integer.valueOf(sc.next());
                 }
                 System.out.println("Previous Array is:");
                 printArray(a);
                 
                 Mergesort(a, 0, a.length - 1);
-               //  quicksort(b, 0, n-1); 
-                System.out.println("\nSorted array is:");
+             
+                System.out.println("\n Sorted array by Merge sort is:");
                 printArray(a);
-               // printArray(b);
+               
             }
         } catch (Exception e) {
             System.out.println("Exceptions found");
@@ -143,23 +143,21 @@ static long count2=0;
             while (sc1.hasNext()) {
                 String s = sc1.nextLine();
                 int n1 = Integer.valueOf(s);
-           //     a = new int[n];
+           
                b = new int[n1];
                 for (int i = 0; i < n1; i++) {
-                  //  a[i] = Integer.valueOf(sc.next());
                    b[i] = Integer.valueOf(sc1.next());
                 }
-               // System.out.println("Previous Array is:");
-                //printArray(a);
-                
-               // Mergesort(a, 0, a.length - 1);
+               
                  quicksort(b, 0, n1-1); 
-                System.out.println("\nSorted array is:");
+                System.out.println("\nSorted array by Quick sort is:");
                 printArray(b);
-               // printArray(b);
+             
             }
         } catch (Exception e) {
             System.out.println("Exceptions found");
         }
+        System.out.println("Number of exchange operation in Merge sort is:"+count1);
+        System.out.println("Number of exchange operation in Quick sort is:"+count2);
     }
 }
